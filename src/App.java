@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class App {
-    
+
     public static void main(String[] args) throws Exception {
         
         Scanner in = new Scanner(System.in);
@@ -16,16 +16,7 @@ public class App {
         String childStatus1; 
         String childAddress1; 
         String childGift1; 
-        String childFirstName2; 
-        String childLastName2; 
-        String childStatus2; 
-        String childAddress2; 
-        String childGift2; 
-        String childFirstName3; 
-        String childLastName3; 
-        String childStatus3; 
-        String childAddress3; 
-        String childGift3; 
+        
         
         // Naughty & Nice List Array 
 
@@ -56,6 +47,7 @@ public class App {
             
                 printArray(santasList);
 
+                // Change data to uppercase
                 for (int row = 0; row < santasList.length; row++) { 
                     
                     for (int column = 0; column < santasList[row].length; column++) { 
@@ -75,8 +67,9 @@ public class App {
                 Thread.sleep(500);
             System.out.println("Or view the list?");
                 Thread.sleep(500);
-            System.out.println("Type '1' to add a child.");
-            System.out.println("Type '2' to view the existing list.");
+            System.out.println("Type \'1\' to add a child.");
+            System.out.println("Type \'2\' to view the existing list.");
+            System.out.println("Type \'0\' to exit.");
                 
             userIn = in.nextInt();
             userChoice = 0;
@@ -86,37 +79,32 @@ public class App {
 
         // Inner Loop w/results    
 
-        do { 
 
-            // Error Handling 
+            // Error Handling
 
-            if (userChoice < 1 || userChoice > 2) { 
+            while(userChoice != 1 && userChoice != 2 && userChoice != 0) { 
+
                 System.out.println("Invalid input. Try again."); 
 
                 System.out.println("Type '1' to add a child.");
 
                 System.out.println("Type '2' to view the existing list.");
 
-                in.nextInt();
-            }
+                userChoice = in.nextInt();
 
-             // Search for a child on Santa's list 
-
-            else if (userChoice == 2) {
-                
-            System.out.println("Okay! Initializing Santa's list now...");
-            Thread.sleep(1000);
+            } 
             
-            printArray(santasList);
 
-            for (int row = 0; row < santasList.length; row++) { 
+            
+
+            // View Santa's list
+
+            if (userChoice == 2) {
                 
-                for (int column = 0; column < santasList[row].length; column++) { 
-                    santasList[row][column] = santasList[row][column].toUpperCase();
-                    
-                }
-
-            }
+                System.out.println("Okay! Initializing Santa's list now...");
+                Thread.sleep(1000);
+                
+                printArray(santasList);
 
 
             }
@@ -125,7 +113,7 @@ public class App {
 
             else if (userChoice == 1) { 
 
-                 // Recieving user input and storing the child's information 
+                // Recieving user input and storing the child's information 
 
                 System.out.println("Okay! Let's get started..." + Colors.ANSI_RESET); 
                 Thread.sleep(500);
@@ -158,51 +146,61 @@ public class App {
 
                 System.out.println(Colors.ANSI_GREEN + "All done! " + childFirstName1 + " has been added to Santa's list!");
                 
-                Thread.sleep(2000); 
-                
-                System.out.println("Would you like to view Santas List, Search for a child on the List, add another child, or exit?" + Colors.ANSI_RESET);
-                Thread.sleep(2000);
-                
+                for (int row = 0; row < santasList.length; row++) { 
+                    if (santasList[row][0].equals("")
+                        && santasList[row][1].equals("") 
+                        && santasList[row][2].equals("") 
+                        && santasList[row][3].equals("") 
+                        && santasList[row][4].equals("") 
+                    ) { 
+                        santasList[row][0] = childFirstName1; 
+                        santasList[row][1] = childLastName1; 
+                        santasList[row][2] = childStatus1; 
+                        santasList[row][3] = childAddress1; 
+                        santasList[row][4] = childGift1; 
 
-                in.nextInt();
-            } 
-   
-         while(true);
-            }  while(true);
+                        printArray(santasList);
+                        break;
+                    }
+
+                }
+                
+                
+    
+
+            }
           
+            else if (userChoice == 0) { 
+                System.exit(0);
 
+            }
         
 
             
         } while(true); 
     }
 
+    // Printing Santa's List
 
-    // Printing Santa's List 
-
-    public static void printArray(String[][] array) { 
-        for(int row = 0; row < array.length; row++)  { 
-            if (array[row][2].toUpperCase().equals("NAUGHTY")) { 
-                System.out.println(Colors.ANSI_RED); 
+    public static void printArray(String[][] array) {
+        for (int row = 0; row < array.length; row++) {
+            if (array[row][2].toUpperCase().equals("NAUGHTY")) {
+                System.out.println(Colors.ANSI_RED);
+            } else if (array[row][2].toUpperCase().equals("NICE")) {
+                System.out.println(Colors.ANSI_GREEN);
+            } else {
+                System.out.println(Colors.ANSI_YELLOW);
             }
-            else if(array[row][2].toUpperCase().equals("NICE")) {
-                System.out.println(Colors.ANSI_GREEN); 
-            }
-            else { 
-                System.out.println(Colors.ANSI_YELLOW); 
-            }
-            if (array[row][2].toUpperCase().equals("NAUGHTY")) { 
+            if (array[row][2].toUpperCase().equals("NAUGHTY")) {
                 array[row][4] = ("COAL");
             }
-            for(int column = 0; column < array[row].length; column++) { 
-                System.out.println(array[row][column].toUpperCase() ); 
+            for (int column = 0; column < array[row].length; column++) {
+                System.out.println(array[row][column].toUpperCase());
             }
-                System.out.println(Colors.ANSI_RESET);
-        
+            System.out.println(Colors.ANSI_RESET);
+
         }
-      
-} 
-   
+
+    }
+
 }
-
-
